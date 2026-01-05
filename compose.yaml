@@ -1,0 +1,9 @@
+﻿services:
+  cursos.api:
+    image: cursos.api
+    build:
+      context: .
+      dockerfile: cursos.Api/Dockerfile
+    ports:
+      - "8080:8080"
+

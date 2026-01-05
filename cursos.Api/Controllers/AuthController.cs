@@ -48,7 +48,6 @@ public class AuthController : ControllerBase
     
     
     //REFRESH
-    // [Authorize(Roles = "Admin")]
     [HttpPost("refresh")]
     public async Task<IActionResult> Refresh([FromBody] RefreshDto request)
     {

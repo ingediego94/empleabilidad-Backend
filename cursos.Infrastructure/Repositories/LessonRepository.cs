@@ -18,14 +18,17 @@ public class LessonRepository : IGeneralRepository<Lesson>
     // GET ALL:
     public async Task<IEnumerable<Lesson>> GetAllAsync()
     {
-        return await _context.Lessons.ToListAsync();
+        return await _context.Lessons
+            .Where(l => !l.IsDeleted)
+            .ToListAsync();
     }
 
     
     // GET BY ID:
     public async Task<Lesson?> GetByIdAsync(int id)
     {
-        return await _context.Lessons.FindAsync(id);
+        return await _context.Lessons
+            .FirstOrDefaultAsync(l => l.Id == id && !l.IsDeleted);
     }
 
     
@@ -50,7 +53,10 @@ public class LessonRepository : IGeneralRepository<Lesson>
     // DELETE:
     public async Task<bool> DeleteAsync(Lesson lesson)
     {
-        _context.Lessons.Remove(lesson);
+        lesson.IsDeleted = true;
+        lesson.UpdatedAt = DateTime.UtcNow;
+
+        _context.Lessons.Update(lesson);
         await _context.SaveChangesAsync();
         return true;
     }

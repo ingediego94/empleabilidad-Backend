@@ -30,8 +30,8 @@ public class MapProfile : Profile
         CreateMap<Course, ResponseCourseDto>();
         
         // Lesson:
-        // CreateMap<UserCreateDto, Lesson>();
-        // CreateMap<UserUpdateDto, Lesson>();
-        // CreateMap<User, ResponseUserDto>();
+        CreateMap<LessonCreateDto, Lesson>();
+        CreateMap<LessonUpdateDto, Lesson>();
+        CreateMap<Lesson, ResponseLessonDto>();
     }
 }

@@ -7,9 +7,9 @@ namespace cursos.Application.Interfaces;
 public interface ICourseService
 {
     Task<ResponseCourseDto> CreateAsync(CourseCreateDto dto);
+    Task<ResponseCourseDto> UpdateAsync(int id, CourseUpdateDto dto);
     Task<IEnumerable<ResponseCourseDto>> GetAllAsync();
     Task<ResponseCourseDto> GetByIdAsync(int id);
-    Task<ResponseCourseDto> UpdateAsync(int id, CourseUpdateDto dto);
     Task<bool> DeleteAsync(int id);
 
     Task<bool> PublishAsync(int id);

@@ -36,8 +36,8 @@ builder.Services.AddScoped<IGeneralRepository<Course>, CourseRepository>();
 builder.Services.AddScoped<ICourseService, CourseService>();
 
 // Lesson:
-// builder.Services.AddScoped<IGeneralRepository<Lesson>, LessonRepository>();
-// builder.Services.AddScoped<ILessonService, LessonService>();
+builder.Services.AddScoped<IGeneralRepository<Lesson>, LessonRepository>();
+builder.Services.AddScoped<ILessonService, LessonService>();
 
 
 // ----------------------------------------------------------------
