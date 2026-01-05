@@ -3,6 +3,9 @@
 - Doc: 1085310892
 - Clan: Hopper | Riwi
 
+User Admin: carlos@gmail.com
+password: 123456789
+
 ## Project
 This project was developed for a management of online courses. It has has Clean Architecture with DDD in C# .NET.
 

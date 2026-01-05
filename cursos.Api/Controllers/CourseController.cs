@@ -16,7 +16,32 @@ public class CourseController : ControllerBase
         _service = service;
     }
 
+    // ===============================
+    // CREATE COURSE
+    // POST /api/courses
+    // ===============================
+    [HttpPost]
+    public async Task<IActionResult> Create([FromBody] CourseCreateDto dto)
+    {
+        var result = await _service.CreateAsync(dto);
+        return Ok(result);
+    }
+
+    // ===============================
+    // UPDATE COURSE
+    // PUT /api/courses/{id}
+    // ===============================
+    [HttpPut("{id}")]
+    public async Task<IActionResult> Update(int id, [FromBody] CourseUpdateDto dto)
+    {
+        var result = await _service.UpdateAsync(id, dto);
+        return Ok(result);
+    }
+
+    // ===============================
+    // PUBLISH COURSE
     // PATCH /api/courses/{id}/publish
+    // ===============================
     [HttpPatch("{id}/publish")]
     public async Task<IActionResult> Publish(int id)
     {
@@ -24,7 +49,10 @@ public class CourseController : ControllerBase
         return Ok(new { message = "Course published successfully" });
     }
 
+    // ===============================
+    // UNPUBLISH COURSE
     // PATCH /api/courses/{id}/unpublish
+    // ===============================
     [HttpPatch("{id}/unpublish")]
     public async Task<IActionResult> Unpublish(int id)
     {
@@ -32,7 +60,10 @@ public class CourseController : ControllerBase
         return Ok(new { message = "Course unpublished successfully" });
     }
 
+    // ===============================
+    // SUMMARY
     // GET /api/courses/{id}/summary
+    // ===============================
     [HttpGet("{id}/summary")]
     public async Task<IActionResult> Summary(int id)
     {
@@ -40,7 +71,10 @@ public class CourseController : ControllerBase
         return Ok(result);
     }
 
-    // GET /api/courses/search?q=&status=&page=&pageSize=
+    // ===============================
+    // SEARCH
+    // GET /api/courses/search
+    // ===============================
     [HttpGet("search")]
     public async Task<IActionResult> Search(
         [FromQuery] string? q,
