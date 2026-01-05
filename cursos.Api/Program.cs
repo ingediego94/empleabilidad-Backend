@@ -1,5 +1,11 @@
+using System.Security.Claims;
 using System.Text;
+using cursos.Application.Interfaces;
+using cursos.Application.Services;
+using cursos.Domain.Entities;
+using cursos.Domain.Interfaces;
 using cursos.Infrastructure.Extensions;
+using cursos.Infrastructure.Repositories;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 
@@ -10,7 +16,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddInfrastructure(builder.Configuration);
 
 // Auth
-// builder.Services.AddScoped<IAuthServices, AuthService>();
+builder.Services.AddScoped<IAuthServices, AuthService>();
 
 // AutoMaper:
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
@@ -22,12 +28,16 @@ builder.Services.AddEndpointsApiExplorer();
 // Repositories and Services
 
 // User:
-// builder.Services.AddScoped<IGeneralRepository<User>, UserRepository>();
-// builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<IGeneralRepository<User>, UserRepository>();
+builder.Services.AddScoped<IUserService, UserService>();
 
-// Role:
-// builder.Services.AddScoped<IGeneralRepository<Role>, RolesRepository>();
-// builder.Services.AddScoped<IRoleService, RoleService>();
+// Course:
+builder.Services.AddScoped<IGeneralRepository<Course>, CourseRepository>();
+builder.Services.AddScoped<ICourseService, CourseService>();
+
+// Lesson:
+// builder.Services.AddScoped<IGeneralRepository<Lesson>, LessonRepository>();
+// builder.Services.AddScoped<ILessonService, LessonService>();
 
 
 // ----------------------------------------------------------------
@@ -51,7 +61,8 @@ builder.Services.AddAuthentication(options =>
             ValidIssuer = builder.Configuration["Jwt:Issuer"],
             ValidAudience = builder.Configuration["Jwt:Audience"],
             IssuerSigningKey = new SymmetricSecurityKey(
-                Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]!))
+                Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]!)),
+            RoleClaimType = ClaimTypes.Role // Review¡¡¡¡
         };
     });
 
