@@ -6,7 +6,6 @@ using cursos.Domain.Enum;
 
 [ApiController]
 [Route("api/courses")]
-[Authorize]
 public class CourseController : ControllerBase
 {
     private readonly ICourseService _service;
@@ -21,6 +20,7 @@ public class CourseController : ControllerBase
     // POST /api/courses
     // ===============================
     [HttpPost]
+    [Authorize(Roles = "Admin")]
     public async Task<IActionResult> Create([FromBody] CourseCreateDto dto)
     {
         var result = await _service.CreateAsync(dto);
@@ -32,6 +32,7 @@ public class CourseController : ControllerBase
     // PUT /api/courses/{id}
     // ===============================
     [HttpPut("{id}")]
+    [Authorize(Roles = "Admin")]
     public async Task<IActionResult> Update(int id, [FromBody] CourseUpdateDto dto)
     {
         var result = await _service.UpdateAsync(id, dto);
@@ -43,6 +44,7 @@ public class CourseController : ControllerBase
     // PATCH /api/courses/{id}/publish
     // ===============================
     [HttpPatch("{id}/publish")]
+    [Authorize(Roles = "Admin")]
     public async Task<IActionResult> Publish(int id)
     {
         await _service.PublishAsync(id);
@@ -54,6 +56,7 @@ public class CourseController : ControllerBase
     // PATCH /api/courses/{id}/unpublish
     // ===============================
     [HttpPatch("{id}/unpublish")]
+    [Authorize(Roles = "Admin")]
     public async Task<IActionResult> Unpublish(int id)
     {
         await _service.UnpublishAsync(id);
@@ -65,6 +68,7 @@ public class CourseController : ControllerBase
     // GET /api/courses/{id}/summary
     // ===============================
     [HttpGet("{id}/summary")]
+    [Authorize(Roles = "User")]
     public async Task<IActionResult> Summary(int id)
     {
         var result = await _service.GetSummaryAsync(id);
@@ -76,6 +80,7 @@ public class CourseController : ControllerBase
     // GET /api/courses/search
     // ===============================
     [HttpGet("search")]
+    [Authorize(Roles = "User")]
     public async Task<IActionResult> Search(
         [FromQuery] string? q,
         [FromQuery] Status? status,
